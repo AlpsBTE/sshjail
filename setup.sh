@@ -6,7 +6,6 @@ JAIL_ROOT='/home/jail'
 WORLD_ROOT='/srv/daemon-data/terra/world'
 JAIL_USER='karmcraft'
 declare -a PUBKEYS=(
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoPiZwf0ElC9HhIGnyO+LhUF6Ms1HShsREIgyTecARHqdLTVW3BUAaF90OjJ45fKbx34gvhjDoaKdilClYmkNx8sYkbnmCpOwF4RXQNhHdDAk46QTn35UHHCWRrltdi2NHPG4kx8KGdY4OXcReg7KeiI+WZ08bth8ldDalZpdIQrHCZTOgI+0ab2s96Hr1rTryjsF9KxLbXbWlemuiwM8vJGrYqG3NYjrEJOkPnx9UhH6kveVgdRzylT4xPGkE7djImGCC1v5NJOTq25tndMixOTRk9n5ipu8Yv8w3iJw9H2M3XwGa9YkmEFdmEOCe8FrlW36hXIVQpKKgxdOUOVUEuWJYqgrbwag9668HwqlVnSWskHsG6yc4LyD5uaissfcyzRK/bmAU2WvLVZ40ehk9YaNQpJJD/LlT4hMhD67FRFknRxHEjJf91GQ3AAr8KgDjBYpdrQGa3hIxQAtabJkPwdwav4zbV0drsqTfcKsmKs7wDURVDCXKBH8LTqNNcQ0= kami"
     "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAskTfNE5uYMwhRNkwRWQniWZ+fpMCo1UboXVibkb+AuUnE4SlbXCWxMl2PjHqUNe5w/IdbYvwX+6sN7CfbMbF+mFDpo5t2fYQVthjYb0cxZJB3m5Luw75RXUQ7jKVoRG6r6PXkmcsNz1vndLrqeaEyeF/zTGggDvF52Sid5/Q3tGFlcliO640oslvPZq+0zQwKDLyluXwpmg2TRrMrhkYmWGkqVf+Cc5L7AHUmZCkqRDTx9QsekF7NpGzgdlE92iXb0rCpSLA8KPU85RR2uiuCeo87y42Hh7eFYXaMlrq7+CNuuxrd0gQmu60Yf0WlgT/Um+6HJ0haa280jG2ITSYpw== karmcraft"
 )
 
@@ -100,6 +99,10 @@ else
     msg2 "Entry already present. Skipping..."
 fi
 
+if [ ! -d "${JAIL_ROOT}/world" ]; then
+    msg2 "Creating mountpoint"
+    mkdir "${JAIL_ROOT}/world"
+fi
 if ! mountpoint "${JAIL_ROOT}/world" &> /dev/null; then
     msg2 "Mounting world folder read-only"
     sudo mount --read-only --bind /srv/daemon-data/terra/world /home/jail/world
