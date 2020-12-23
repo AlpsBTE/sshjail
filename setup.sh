@@ -83,6 +83,7 @@ sudo mkdir -p "/home/${JAIL_USER}/.ssh"
     done
 } | sudo tee "/home/${JAIL_USER}/.ssh/authorized_keys"
 
+read -p "Hit enter to continue: "
 
 #################################################
 #                     FSTAB                     #
